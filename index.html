@@ -64,13 +64,17 @@
 
     <!--loading esri modules-->
     <script>
-        require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Locate", "esri/widgets/Search", "esri/layers/FeatureLayer"], (esriConfig, Map, MapView, Locate, Search, FeatureLayer) => {
+        require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Locate", "esri/widgets/Search", "esri/layers/FeatureLayer, esri/tasks/Locator"], (esriConfig, Map, MapView, Locate, Search, FeatureLayer, Locator) => {
             //adding API key
                 esriConfig.apiKey = "AAPK5c4b46937c724a85bafafb4e90db2ef8FulouvcXphhvck6dUoP3w0m88XyT223SeoG7XCVjKvxBWfXmFpVhYYFUJevt3N3r";
 
             const map = new Map({
                 container: "viewDiv",
                 basemap: "satellite"
+            });
+
+            const locator = new Locator({
+                url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
             });
 
             const view = new MapView({
