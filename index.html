@@ -76,8 +76,8 @@
             const view = new MapView({
                 container: "viewDiv", // Reference to the DOM node that will contain the view
                 map: map, // References the map object
-                center: [0, 0], // Sets default center of map to University of Florida
-                zoom: 5 // Sets default zoom level
+                center: [32, -41], // Sets default center of middle of Atlantic Ocean (for broad view of world map)
+                zoom: 4 // Sets default zoom level
             });
 
             const locateBtn = new Locate({
@@ -118,7 +118,7 @@
 
 <body>
     <a href="https://arcg.is/1yuC1z1" target="_blank" class="addDestinationBtn">Suggest a destination!</a>
-    <a href="https://arcg.is/PHKjj" target="_blank" class="viewDestinationBtn">View all destinations</a>
+    <a href="https://survey123.arcgis.com/surveys/2c5e062e09b04ac8bdd217de05b331fe/data" target="_blank" class="viewDestinationBtn">View all destinations</a>
     <div id="viewDiv"></div>
 </body>
 
