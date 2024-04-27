@@ -111,6 +111,18 @@
                 popupTemplate: popup
             });
 
+            view.popup.watch("selectedFeature", function (feature) {
+                if (feature) {
+                    // Use the feature's geometry for reverse geocoding
+                    locator.locationToAddress(feature.geometry, 100).then(function(response) {
+                        var address = response.address;
+
+                        // Update the popup's content with the address
+                        view.popup.content += "<b>Address:</b> " + address;
+                    });
+                }
+            });
+
             map.add(layer);
         });
     </script>
