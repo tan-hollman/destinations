@@ -18,7 +18,7 @@
             width: 100%;
         }
 
-        .addRecordBtn {
+        .addDestinationBtn {
             position: absolute;
             z-index: 10;
             top: 10px;
@@ -33,9 +33,29 @@
             text-decoration: none;
         }
         
-        .addRecordBtn:hover {
+        .addDestinationBtn:hover {
             background-color: #005a87;
         }
+
+        .viewDestinationBtn {
+            position: absolute;
+            z-index: 10;
+            bottom: 10px;
+            right: 10px;
+            background-color: #0079c1;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .viewDestinationBtn:hover {
+            background-color: #005a87;
+        }
+
     </style>
     
     <!--importing css and esri.js libraries-->
@@ -56,8 +76,8 @@
             const view = new MapView({
                 container: "viewDiv", // Reference to the DOM node that will contain the view
                 map: map, // References the map object
-                center: [-82.3557, 29.6439], // Sets default center of map to University of Florida
-                zoom: 15 // Sets default zoom level
+                center: [0, 0], // Sets default center of map to University of Florida
+                zoom: 5 // Sets default zoom level
             });
 
             const locateBtn = new Locate({
@@ -73,15 +93,22 @@
                 view: view
             });
 
-            // Add the search widget to the top right corner of the view
+            // Add the search widget to the top left corner of the view
             view.ui.add(searchWidget, {
                 position: "top-left",
                 index: 0
             });
+            
+            const popup = { //creating popup
+                "title": "User-submitted Destination",
+                "content": "<b>Title:</b> {title_specify_what_you_are_refe}<br><b>Comments:</b> {optional_leave_any_comments_or}<br>"
+            }
 
             const layer = new FeatureLayer({
                 // URL to the service 
-                url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_e84d05d3f12b43cdabb1a784ead11811_results/FeatureServer"
+                url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_2c5e062e09b04ac8bdd217de05b331fe_results/FeatureServer",
+                outFields: ["title_specify_what_you_are_refe", "optional_leave_any_comments_or"],
+                popupTemplate: popup
             });
 
             map.add(layer);
@@ -90,7 +117,8 @@
 </head>
 
 <body>
-    <a href="https://arcg.is/1KPmuj0" target="_blank" class="addRecordBtn">Add Record</a>
+    <a href="https://arcg.is/1yuC1z1" target="_blank" class="addDestinationBtn">Suggest a destination!</a>
+    <a href="https://arcg.is/PHKjj" target="_blank" class="viewDestinationBtn">View all destinations</a>
     <div id="viewDiv"></div>
 </body>
 
