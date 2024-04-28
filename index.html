@@ -125,7 +125,7 @@
                             if (response && response.address) {
                                 var title = feature.attributes.title_specify_what_you_are_refe;
                                 var comments = feature.attributes.optional_leave_any_comments_or;
-                                view.popup.content = popup.content + "<b>Address:</b> " + response.address;
+                                view.popup.content = "<b>Title:</b> " + title + "<b>Comments:</b> " + comments + "<b>Address:</b> " + response.address;
                             }
                         })
                         .catch(function (error) {
