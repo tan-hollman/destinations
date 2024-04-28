@@ -120,7 +120,7 @@
                         location: point
                     };
 
-                    locator.locationToAddress(params)
+                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
                         .then(function (response) {
                             if (response && response.address) {
                                 popup.content += "<b>Address:</b> " + response.address;
