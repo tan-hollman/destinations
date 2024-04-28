@@ -99,45 +99,43 @@
                 index: 0
             });
             
-            var popup = { //creating popup (needs to be var so it can be edited with address in future function)
+            var popup = {
                 "title": "User-submitted Destination",
-                "content": "<b>Title:</b> {title_specify_what_you_are_refe}<br><b>Comments:</b> {optional_leave_any_comments_or}<br>"
-            }
+                "content": function (feature) {
+                    return new Promise(function (resolve, reject) {
+                        var content = "<b>Title:</b> {title_specify_what_you_are_refe}<br><b>Comments:</b> {optional_leave_any_comments_or}<br>";
+
+                        if (feature && feature.geometry) {
+                            // Create a Point object from feature.geometry
+                            var point = new Point(feature.geometry);
+
+                            var params = {
+                                location: point
+                            };
+
+                            locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
+                                .then(function (response) {
+                                    if (response && response.address) {
+                                        content += "<b>Address:</b> " + response.address;
+                                    }
+                                    resolve(content);
+                                })
+                                .catch(function (error) {
+                                    console.error("Error in locationToAddress: ", error);
+                                    resolve(content);
+                                });
+                        } else {
+                            resolve(content);
+                        }
+                    });
+                }
+            };
 
             var layer = new FeatureLayer({
                 // URL to the service 
                 url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_2c5e062e09b04ac8bdd217de05b331fe_results/FeatureServer",
                 outFields: ["title_specify_what_you_are_refe", "optional_leave_any_comments_or"],
                 popupTemplate: popup
-            });
-
-            view.popup.watch("selectedFeature", function (feature) {
-                if (feature && feature.geometry) {
-                    // Create a Point object from feature.geometry
-                    var point = new Point(feature.geometry);
-
-                    var params = {
-                        location: point
-                    };
-
-                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
-                        .then(function (response) {
-                            console.log("AddressCandidate: ", response);  // Log the AddressCandidate
-                            console.log("Address: ", response.address);  // Log the address
-
-                            if (response && response.address) {
-                                var address = response.address;  // Use response.address
-                                var oldContent = view.popup.content;  // Get the existing popup content
-                                var newContent = oldContent + "<b>Address:</b> " + address;  // Create a new string
-                                view.popup.content = newContent;  // Set the new string as the popup content
-                            } else {
-                                console.error("Response or response.address is undefined");
-                            }
-                        })
-                        .catch(function (error) {
-                            console.error("Error in locationToAddress: ", error);
-                        });
-                }
             });
 
             map.add(layer);
