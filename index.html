@@ -111,8 +111,6 @@
                 popupTemplate: popup
             });
 
-            const locatorObject = new Locator({ url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer" });
-
             view.popup.watch("selectedFeature", function (feature) {
                 if (feature && feature.geometry) {
                     // Create a Point object from feature.geometry
@@ -120,9 +118,10 @@
 
                     // Use the Point object for reverse geocoding
                     var params = {
-                        location: point
+                        location: point,
+                        langCode: "en"
                     };
-                    locatorTask.locationToAddress(params)
+                    Locator.locationToAddress(params, 100, "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer")
                         .then(function (response) {
                             if (response && response.address) {
                                 view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
