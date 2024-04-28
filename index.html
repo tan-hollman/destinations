@@ -118,7 +118,7 @@
 
                     // Use the Point object for reverse geocoding
                     var params = {
-                        location: point,
+                        location: point.longitude + "," + point.latitude,
                         langCode: "en"
                     };
                     locator.locationToAddress(params, 100, "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer")
