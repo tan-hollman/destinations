@@ -122,6 +122,8 @@
 
                     locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
                         .then(function (response) {
+                            console.log("Response: ", response);  // Log the response
+
                             if (response && response.address) {
                                 view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
                             } else {
