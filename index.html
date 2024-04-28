@@ -104,7 +104,7 @@
                 "content": "<b>Title:</b> {title_specify_what_you_are_refe}<br><b>Comments:</b> {optional_leave_any_comments_or}<br>"
             }
 
-            const layer = new FeatureLayer({
+            var layer = new FeatureLayer({
                 // URL to the service 
                 url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_2c5e062e09b04ac8bdd217de05b331fe_results/FeatureServer",
                 outFields: ["title_specify_what_you_are_refe", "optional_leave_any_comments_or"],
