@@ -125,7 +125,7 @@
                             console.log("Response: ", response);  // Log the response
 
                             if (response && response.address) {
-                                var address = response.address();  // Call the address function
+                                var address = response.address.Match_addr;  // Access the Match_addr property
                                 view.popup.content += "<b>Address:</b> " + address;
                             } else {
                                 console.error("Response or response.address is undefined");
