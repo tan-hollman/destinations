@@ -113,9 +113,8 @@
 
             view.popup.watch("selectedFeature", function (feature) {
                 if (feature) {
-                    view.popup.content += "<b>Address:</b> " + locationToAddress(feature.geometry, 100);
                     // Use the feature's geometry for reverse geocoding
-                    locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", feature.geometry)
+                    view.popup.content += "<b>Address:</b> " + locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", feature.geometry);
                 }
             });
 
