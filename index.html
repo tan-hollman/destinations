@@ -113,26 +113,24 @@
 
             view.popup.watch("selectedFeature", function (feature) {
                 if (feature && feature.geometry) {
-                    // Check if toJSON method is defined
-                    if (typeof feature.geometry.toJSON === 'function') {
-                        // Use the feature's geometry for reverse geocoding
-                        var params = {
-                            location: feature.geometry
-                        };
-                        locator.locationToAddress(params)
-                            .then(function (response) {
-                                if (response && response.address) {
-                                    view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
-                                } else {
-                                    console.error("Response or response.address is undefined");
-                                }
-                            })
-                            .catch(function (error) {
-                                console.error("Error in locationToAddress: ", error);
-                            });
-                    } else {
-                        console.error("toJSON method is not defined on feature.geometry");
-                    }
+                    // Create a Point object from feature.geometry
+                    var point = new Point(feature.geometry);
+            
+                    // Use the Point object for reverse geocoding
+                    var params = {
+                        location: point
+                    };
+                    locator.locationToAddress(params)
+                        .then(function (response) {
+                            if (response && response.address) {
+                                view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
+                            } else {
+                                console.error("Response or response.address is undefined");
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error("Error in locationToAddress: ", error);
+                        });
                 }
             });
 
