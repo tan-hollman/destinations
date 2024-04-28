@@ -110,21 +110,25 @@
                 outFields: ["title_specify_what_you_are_refe", "optional_leave_any_comments_or"],
                 popupTemplate: popup
             });
-
+            
+            // Watch for popup
             view.popup.watch("selectedFeature", function (feature) {
                 if (feature && feature.geometry) {
                     // Create a Point object from feature.geometry
                     var point = new Point(feature.geometry);
-
+                    
                     var params = {
                         location: point
                     };
-
+                    
+                    // Reverse geocode the location of the selected popup
                     locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
                         .then(function (response) {
                             if (response && response.address) {
                                 var title = feature.attributes.title_specify_what_you_are_refe;
                                 var comments = feature.attributes.optional_leave_any_comments_or;
+                                comments = comments ? comments : "N/A"; // If comments is null, set it to "N/A"
+                                // Add the address to the popup (have to readd everything manually)
                                 view.popup.content = "<b>Title:</b> " + title + "<b>Comments:</b> " + comments + "<b>Address:</b> " + response.address;
                             }
                         })
