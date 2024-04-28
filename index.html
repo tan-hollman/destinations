@@ -73,10 +73,6 @@
                 basemap: "satellite"
             });
 
-            var locator = new locator({
-                url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
-            });
-
             const view = new MapView({
                 container: "viewDiv", // Reference to the DOM node that will contain the view
                 map: map, // References the map object
@@ -117,13 +113,9 @@
 
             view.popup.watch("selectedFeature", function (feature) {
                 if (feature) {
+                    view.popup.content += "<b>Address:</b> " + locationToAddress(feature.geometry, 100);
                     // Use the feature's geometry for reverse geocoding
-                    locator.locationToAddress(feature.geometry, 100).then(function(response) {
-                        var address = response.address;
-
-                        // Update the popup's content with the address
-                        view.popup.content += "<b>Address:</b> " + address;
-                    });
+                    locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", feature.geometry)
                 }
             });
 
