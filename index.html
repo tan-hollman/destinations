@@ -120,9 +120,10 @@
                         location: point
                     };
 
-                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
+                    locator.locationToAddress(params)
                         .then(function (response) {
-                            console.log("Response: ", response);  // Log the response
+                            console.log("AddressCandidate: ", response);  // Log the AddressCandidate
+                            console.log("Address: ", response.address);  // Log the address
 
                             if (response && response.address) {
                                 var address = response.address.Match_addr;  // Access the Match_addr property
