@@ -116,7 +116,11 @@
                     // Create a Point object from feature.geometry
                     var point = new Point(feature.geometry);
 
-                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", point)
+                    var params = {
+                        location: point
+                    };
+
+                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
                         .then(function (response) {
                             if (response && response.address) {
                                 view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
