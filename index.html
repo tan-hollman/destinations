@@ -123,9 +123,9 @@
                     locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
                         .then(function (response) {
                             if (response && response.address) {
-                                var title = feature.graphic.attributes.title_specify_what_you_are_refe;
-                                var comments = feature.graphic.attributes.optional_leave_any_comments_or;
-                                view.popup.content = "<b>Title:</b> " + title + "<br><b>Comments:</b> " + comments + "<br><b>Address:</b> " + response.address;
+                                var title = feature.attributes.title_specify_what_you_are_refe;
+                                var comments = feature.attributes.optional_leave_any_comments_or;
+                                view.popup.content = popup.content + "<b>Address:</b> " + response.address;
                             }
                         })
                         .catch(function (error) {
