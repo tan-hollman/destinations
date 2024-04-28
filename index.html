@@ -116,12 +116,7 @@
                     // Create a Point object from feature.geometry
                     var point = new Point(feature.geometry);
 
-                    // Use the Point object for reverse geocoding
-                    var params = {
-                        location: point.longitude + "," + point.latitude,
-                        langCode: "en"
-                    };
-                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
+                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", point)
                         .then(function (response) {
                             if (response && response.address) {
                                 view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
