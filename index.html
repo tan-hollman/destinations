@@ -121,7 +121,7 @@
                         location: point.longitude + "," + point.latitude,
                         langCode: "en"
                     };
-                    locator.locationToAddress(params, 100, "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer")
+                    locator.locationToAddress("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer", params)
                         .then(function (response) {
                             if (response && response.address) {
                                 view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
