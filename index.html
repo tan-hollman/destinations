@@ -120,8 +120,12 @@
                     console.log("feature.geometry: ", feature.geometry);  // Add this line
                     locator.locationToAddress(params)
                         .then(function(response) {
-                            // The address is returned in the response
-                            view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
+                            // Check if response and response.address exist before accessing Match_addr
+                            if (response && response.address) {
+                                view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
+                            } else {
+                                console.error("Response or response.address is undefined");
+                            }
                         })
                         .catch(function(error) {
                             console.error("Error in locationToAddress: ", error);
