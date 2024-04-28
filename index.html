@@ -127,7 +127,9 @@
 
                             if (response && response.address) {
                                 var address = response.address;  // Use response.address
-                                view.popup.content += "<b>Address:</b> " + address;
+                                var oldContent = view.popup.content;  // Get the existing popup content
+                                var newContent = oldContent + "<b>Address:</b> " + address;  // Create a new string
+                                view.popup.content = newContent;  // Set the new string as the popup content
                             } else {
                                 console.error("Response or response.address is undefined");
                             }
