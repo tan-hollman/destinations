@@ -126,7 +126,7 @@
                             console.log("Address: ", response.address);  // Log the address
 
                             if (response && response.address) {
-                                var address = response.address.Match_addr;  // Access the Match_addr property
+                                var address = response.address;  // Use response.address
                                 view.popup.content += "<b>Address:</b> " + address;
                             } else {
                                 console.error("Response or response.address is undefined");
