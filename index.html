@@ -103,7 +103,7 @@
                 "title": "User-submitted Destination",
                 "content": function (feature) {
                     return new Promise(function (resolve, reject) {
-                        var content = "<b>Title:</b> {title_specify_what_you_are_refe}<br><b>Comments:</b> {optional_leave_any_comments_or}<br>";
+                        var content = "<b>Title:</b> " + feature.graphic.attributes.title_specify_what_you_are_refe + "<br><b>Comments:</b> " + feature.graphic.attributes.optional_leave_any_comments_or + "<br>";
 
                         if (feature && feature.geometry) {
                             // Create a Point object from feature.geometry
