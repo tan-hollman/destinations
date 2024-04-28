@@ -112,7 +112,7 @@
             });
 
             view.popup.watch("selectedFeature", function (feature) {
-                if (feature) {
+                if (feature && feature.geometry) {
                     // Use the feature's geometry for reverse geocoding
                     var params = {
                         location: feature.geometry
@@ -121,6 +121,9 @@
                         .then(function(response) {
                             // The address is returned in the response
                             view.popup.content += "<b>Address:</b> " + response.address.Match_addr;
+                        })
+                        .catch(function(error) {
+                            console.error("Error in locationToAddress: ", error);
                         });
                 }
             });
